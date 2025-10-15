@@ -1,0 +1,35 @@
+[
+  {
+    "id": "post-001",
+    "title": "Understanding Real Estate Investment in Visakhapatnam",
+    "slug": "real-estate-investment-visakhapatnam",
+    "excerpt": "Visakhapatnam is emerging as one of India's fastest-growing real estate markets. Learn about the key factors driving growth and investment opportunities.",
+    "content": "Full article content here...",
+    "author": "Sree Pratish Team",
+    "date": "2024-10-10",
+    "category": "Investment",
+    "image": "/assets/blog/blog-1.jpg"
+  },
+  {
+    "id": "post-002",
+    "title": "Legal Due Diligence: Why It Matters",
+    "slug": "legal-due-diligence-real-estate",
+    "excerpt": "Legal security is paramount in real estate. Discover our rigorous due diligence process that ensures clear titles and hassle-free ownership.",
+    "content": "Full article content here...",
+    "author": "Legal Team",
+    "date": "2024-09-25",
+    "category": "Legal",
+    "image": "/assets/blog/blog-2.jpg"
+  },
+  {
+    "id": "post-003",
+    "title": "Upcoming Infrastructure Projects Boosting Property Value",
+    "slug": "infrastructure-projects-visakhapatnam",
+    "excerpt": "Major infrastructure developments are transforming Visakhapatnam. Here's how they impact property values and investment potential.",
+    "content": "Full article content here...",
+    "author": "Market Research",
+    "date": "2024-09-15",
+    "category": "Market Insights",
+    "image": "/assets/blog/blog-3.jpg"
+  }
+]
