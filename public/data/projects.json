@@ -34,22 +34,23 @@
     "postedAt": "2024-08-15"
   },
   {
-    "id": "sp-hub-001",
-    "title": "Commerce Square",
-    "category": "Hubs",
-    "type": "Commercial Complex",
-    "location": "Dwaraka Nagar, Visakhapatnam",
-    "status": "Completed",
-    "priceRange": "₹60L - ₹2.5Cr",
-    "images": ["/assets/projects/hub-1.jpg"],
-    "areaAcres": 1.5,
-    "amenities": ["Retail Spaces", "Office Suites", "Ample Parking", "24x7 Security", "High-Speed Elevators", "Central Air Conditioning"],
-    "documents": [
-      { "label": "Occupancy Certificate", "url": "/assets/docs/oc-commerce.pdf" }
-    ],
-    "summary": "High-yield commercial spaces in bustling business district with guaranteed rental returns.",
-    "postedAt": "2024-07-01"
-  },
+  "id": "sp-hub-001",
+  "title": "Nivo",
+  "category": "Hubs",
+  "type": "Commercial Complex",
+  "location": "Rushikonda, Visakhapatnam",
+  "status": "Completed",
+  "priceRange": "₹60L - ₹2.5Cr",
+  "images": [ "/assets/nivo2.png" ],
+  "areaAcres": 1.5,
+  "amenities": ["Retail Spaces", "Office Suites", "Ample Parking", "24x7 Security"],
+  "documents": [
+    { "label": "Occupancy Certificate", "url": "/assets/horizon-hub-canvas/index.html" }
+  ],
+  "detailUrl": "/assets/nivo.html",
+  "summary": "NIVO by Sree Pratish — boutique beachfront studio residences ...",
+  "postedAt": "2024-07-01"
+},
   {
     "id": "sp-horizon-002",
     "title": "Sunrise Plots",

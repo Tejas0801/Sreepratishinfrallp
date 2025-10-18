@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
+import logoy from "../assets/logoy.png"; // default logo (top)
+import logor from "../assets/logor.png"; // scrolled logo
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +16,12 @@ const Navbar = () => {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Preload scrolled logo to avoid flicker
+  useEffect(() => {
+    const img = new Image();
+    img.src = logor;
   }, []);
 
   const navLinks = [
@@ -35,10 +43,15 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-serif font-bold text-primary">
-              Sree Pratish
+        <div className="flex items-center justify-between h-20 transition-all duration-300">
+          {/* ✅ Logo that changes only when scrolled */}
+          <Link to="/" className="flex items-center space-x-2 h-10 md:h-16">
+            <div className="h-full flex items-center">
+              <img
+                src={isScrolled ? logor : logoy}
+                alt="Sree Pratish Infra LLP logo"
+                className="max-h-full w-auto object-contain transition-all duration-300"
+              />
             </div>
           </Link>
 
@@ -59,6 +72,7 @@ const Navbar = () => {
             ))}
           </div>
 
+          {/* Desktop CTA */}
           <div className="hidden md:block">
             <Button asChild variant="default" size="lg">
               <Link to="/contact">Talk to Sales</Link>

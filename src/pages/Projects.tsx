@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Search, Filter, MapPin, TrendingUp, X } from "lucide-react";
+import { Search, MapPin, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -25,6 +25,7 @@ interface Project {
   documents: Array<{ label: string; url: string }>;
   summary: string;
   postedAt: string;
+  detailUrl?: string;
 }
 
 const Projects = () => {
@@ -36,12 +37,14 @@ const Projects = () => {
   const [statusFilter, setStatusFilter] = useState("All");
 
   useEffect(() => {
-    // Load projects from JSON
     fetch("/data/projects.json")
       .then((res) => res.json())
       .then((data) => {
         setProjects(data);
         setFilteredProjects(data);
+      })
+      .catch((err) => {
+        console.error("Failed to load projects.json", err);
       });
   }, []);
 
@@ -74,6 +77,58 @@ const Projects = () => {
     Upcoming: "bg-orange-500/10 text-orange-600 border-orange-200",
   };
 
+  const getImageSrc = (project: Project) => {
+    const img = project.images?.[0];
+    if (!img) return null;
+    if (img.startsWith("/")) return img;
+    return img;
+  };
+
+  const openInNewTab = (url: string) => {
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const handleViewDetails = (project: Project, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+
+    // prefer explicit detailUrl
+    if (project.detailUrl) {
+      console.log("Opening detailUrl:", project.detailUrl);
+      openInNewTab(project.detailUrl);
+      return;
+    }
+
+    // prefer a document that looks like canvas/html
+    const canvasDoc =
+      project.documents?.find((d) => {
+        const url = (d.url || "").toLowerCase();
+        const label = (d.label || "").toLowerCase();
+        return (
+          url.endsWith("index.html") ||
+          url.includes("canvas") ||
+          label.includes("canvas") ||
+          url.endsWith(".html")
+        );
+      }) || null;
+
+    if (canvasDoc) {
+      console.log("Opening canvasDoc:", canvasDoc.url);
+      openInNewTab(canvasDoc.url);
+      return;
+    }
+
+    // fallback to first document (pdf/zip)
+    const firstDoc = project.documents?.[0];
+    if (firstDoc) {
+      console.log("Opening firstDoc:", firstDoc.url);
+      openInNewTab(firstDoc.url);
+      return;
+    }
+
+    // final fallback: open modal
+    setSelectedProject(project);
+  };
+
   return (
     <div className="min-h-screen pt-20">
       {/* Header */}
@@ -102,46 +157,17 @@ const Projects = () => {
                 className="pl-10"
               />
             </div>
+
             <div className="flex gap-2 flex-wrap justify-center">
-              <Button
-                variant={categoryFilter === "All" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setCategoryFilter("All")}
-              >
-                All Projects
-              </Button>
-              <Button
-                variant={categoryFilter === "Homes" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setCategoryFilter("Homes")}
-              >
-                Homes
-              </Button>
-              <Button
-                variant={categoryFilter === "Hubs" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setCategoryFilter("Hubs")}
-              >
-                Hubs
-              </Button>
-              <Button
-                variant={categoryFilter === "Horizons" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setCategoryFilter("Horizons")}
-              >
-                Horizons
-              </Button>
+              <Button variant={categoryFilter === "All" ? "default" : "outline"} size="sm" onClick={() => setCategoryFilter("All")}>All Projects</Button>
+              <Button variant={categoryFilter === "Homes" ? "default" : "outline"} size="sm" onClick={() => setCategoryFilter("Homes")}>Homes</Button>
+              <Button variant={categoryFilter === "Hubs" ? "default" : "outline"} size="sm" onClick={() => setCategoryFilter("Hubs")}>Hubs</Button>
+              <Button variant={categoryFilter === "Horizons" ? "default" : "outline"} size="sm" onClick={() => setCategoryFilter("Horizons")}>Horizons</Button>
             </div>
+
             <div className="flex gap-2">
               {["All", "Ongoing", "Completed", "Upcoming"].map((status) => (
-                <Button
-                  key={status}
-                  variant={statusFilter === status ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setStatusFilter(status)}
-                >
-                  {status}
-                </Button>
+                <Button key={status} variant={statusFilter === status ? "default" : "outline"} size="sm" onClick={() => setStatusFilter(status)}>{status}</Button>
               ))}
             </div>
           </div>
@@ -153,60 +179,62 @@ const Projects = () => {
         <div className="container mx-auto px-4">
           {filteredProjects.length === 0 ? (
             <div className="text-center py-20">
-              <p className="text-xl text-muted-foreground">
-                No projects found matching your criteria.
-              </p>
+              <p className="text-xl text-muted-foreground">No projects found matching your criteria.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProjects.map((project, index) => (
-                <Card
-                  key={project.id}
-                  className="hover-lift cursor-pointer overflow-hidden animate-scale-in"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                  onClick={() => setSelectedProject(project)}
-                >
-                  <div className="relative h-56 bg-gradient-to-br from-primary/10 to-secondary/20">
-                    <div className="absolute top-4 right-4 z-10">
-                      <Badge className={statusColors[project.status as keyof typeof statusColors]}>
-                        {project.status}
-                      </Badge>
-                    </div>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center p-4">
-                        <div className="text-6xl font-serif font-bold text-primary/20 mb-2">
-                          {project.category}
+              {filteredProjects.map((project, index) => {
+                const imgSrc = getImageSrc(project);
+                return (
+                  <Card
+                    key={project.id}
+                    className="hover-lift cursor-pointer overflow-hidden animate-scale-in"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                    onClick={() => setSelectedProject(project)}
+                  >
+                    <div className="relative h-56 bg-gradient-to-br from-primary/10 to-secondary/20 overflow-hidden">
+                      {imgSrc ? (
+                        <img src={imgSrc} alt={project.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="text-6xl font-serif font-bold text-primary/20 mb-2">{project.category}</div>
                         </div>
+                      )}
+
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+
+                      <div className="absolute top-4 right-4 z-10">
+                        <Badge className={statusColors[project.status as keyof typeof statusColors]}>
+                          {project.status}
+                        </Badge>
                       </div>
                     </div>
-                  </div>
-                  <CardContent className="p-6">
-                    <Badge variant="outline" className="mb-3">
-                      {project.category}
-                    </Badge>
-                    <h3 className="text-2xl font-serif font-bold mb-2">{project.title}</h3>
-                    <div className="flex items-center text-sm text-muted-foreground mb-3">
-                      <MapPin size={14} className="mr-1" />
-                      {project.location}
-                    </div>
-                    <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                      {project.summary}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="text-xs text-muted-foreground">Price Range</div>
-                        <div className="text-lg font-bold text-primary">{project.priceRange}</div>
+
+                    <CardContent className="p-6">
+                      <Badge variant="outline" className="mb-3">{project.category}</Badge>
+                      <h3 className="text-2xl font-serif font-bold mb-2">{project.title}</h3>
+                      <div className="flex items-center text-sm text-muted-foreground mb-3">
+                        <MapPin size={14} className="mr-1" />
+                        {project.location}
                       </div>
-                      <TrendingUp className="text-green-600" size={24} />
-                    </div>
-                  </CardContent>
-                  <CardFooter className="p-6 pt-0">
-                    <Button variant="outline" className="w-full">
-                      View Details
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ))}
+                      <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{project.summary}</p>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="text-xs text-muted-foreground">Price Range</div>
+                          <div className="text-lg font-bold text-primary">{project.priceRange}</div>
+                        </div>
+                        <TrendingUp className="text-green-600" size={24} />
+                      </div>
+                    </CardContent>
+
+                    <CardFooter className="p-6 pt-0">
+                      <Button variant="outline" className="w-full" onClick={(e) => handleViewDetails(project, e)}>
+                        View Details
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                );
+              })}
             </div>
           )}
         </div>
@@ -220,6 +248,7 @@ const Projects = () => {
               <DialogHeader>
                 <DialogTitle className="text-3xl font-serif">{selectedProject.title}</DialogTitle>
               </DialogHeader>
+
               <div className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -259,9 +288,7 @@ const Projects = () => {
                   <h4 className="font-semibold mb-2">Amenities</h4>
                   <div className="flex flex-wrap gap-2">
                     {selectedProject.amenities.map((amenity) => (
-                      <Badge key={amenity} variant="secondary">
-                        {amenity}
-                      </Badge>
+                      <Badge key={amenity} variant="secondary">{amenity}</Badge>
                     ))}
                   </div>
                 </div>
@@ -270,22 +297,14 @@ const Projects = () => {
                   <h4 className="font-semibold mb-2">Documents</h4>
                   <div className="space-y-2">
                     {selectedProject.documents.map((doc) => (
-                      <a
-                        key={doc.label}
-                        href={doc.url}
-                        className="flex items-center text-primary hover:underline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
+                      <a key={doc.label} href={doc.url} className="flex items-center text-primary hover:underline" target="_blank" rel="noopener noreferrer">
                         📄 {doc.label}
                       </a>
                     ))}
                   </div>
                 </div>
 
-                <Button className="w-full" size="lg">
-                  Enquire Now
-                </Button>
+                <Button className="w-full" size="lg">Enquire Now</Button>
               </div>
             </>
           )}
