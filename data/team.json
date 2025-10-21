@@ -1,0 +1,30 @@
+[
+  {
+    "id": "team-001",
+    "name": "Rajesh Kumar",
+    "role": "Managing Partner",
+    "bio": "15+ years in real estate development and strategic acquisitions",
+    "image": "/assets/team/team-1.jpg"
+  },
+  {
+    "id": "team-002",
+    "name": "Priya Sharma",
+    "role": "Head of Legal & Compliance",
+    "bio": "Expert in property law with impeccable track record in title verification",
+    "image": "/assets/team/team-2.jpg"
+  },
+  {
+    "id": "team-003",
+    "name": "Anil Reddy",
+    "role": "Chief Project Manager",
+    "bio": "Civil engineer with 20+ successful projects across residential and commercial sectors",
+    "image": "/assets/team/team-3.jpg"
+  },
+  {
+    "id": "team-004",
+    "name": "Lakshmi Devi",
+    "role": "Investor Relations",
+    "bio": "Building trust and partnerships with investors for mutual success",
+    "image": "/assets/team/team-4.jpg"
+  }
+]
