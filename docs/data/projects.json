@@ -1,0 +1,88 @@
+[
+  {
+    "id": "sp-horizon-001",
+    "title": "Horizon Greens",
+    "category": "Horizons",
+    "type": "Plotted Land",
+    "location": "Visakhapatnam, AP",
+    "status": "Upcoming",
+    "priceRange": "₹12L - ₹35L",
+    "images": ["/assets/projects/horizon-1.jpg"],
+    "areaAcres": 25.4,
+    "amenities": ["Paved Roads", "Underground Drainage", "24x7 Security", "Street Lighting", "Landscaped Parks"],
+    "documents": [
+      { "label": "Title Report", "url": "/assets/docs/title-horizon.pdf" }
+    ],
+    "summary": "Legally vetted land in rapidly appreciating locality near major highway with excellent connectivity.",
+    "postedAt": "2024-09-10"
+  },
+  {
+    "id": "sp-home-001",
+    "title": "Pratish Residency",
+    "category": "Homes",
+    "type": "Residential Apartments",
+    "location": "MVP Colony, Visakhapatnam",
+    "status": "Ongoing",
+    "priceRange": "₹45L - ₹1.2Cr",
+    "images": ["/assets/projects/home-1.jpg"],
+    "areaAcres": 2.8,
+    "amenities": ["Swimming Pool", "Gym", "Children's Play Area", "Covered Parking", "Power Backup", "Clubhouse"],
+    "documents": [
+      { "label": "RERA Certificate", "url": "/assets/docs/rera-pratish.pdf" }
+    ],
+    "summary": "Premium 2 & 3 BHK apartments in prime location with modern amenities and sustainable design.",
+    "postedAt": "2024-08-15"
+  },
+  {
+  "id": "sp-hub-001",
+  "title": "Nivo",
+  "category": "Hubs",
+  "type": "Commercial Complex",
+  "location": "Rushikonda, Visakhapatnam",
+  "status": "Completed",
+  "priceRange": "₹60L - ₹2.5Cr",
+  "images": [ "/assets/nivo2.png" ],
+  "areaAcres": 1.5,
+  "amenities": ["Retail Spaces", "Office Suites", "Ample Parking", "24x7 Security"],
+  "documents": [
+    { "label": "Occupancy Certificate", "url": "/assets/horizon-hub-canvas/index.html" }
+  ],
+  "detailUrl": "/assets/nivo.html",
+  "summary": "NIVO by Sree Pratish — boutique beachfront studio residences ...",
+  "postedAt": "2024-07-01"
+},
+  {
+    "id": "sp-horizon-002",
+    "title": "Sunrise Plots",
+    "category": "Horizons",
+    "type": "Plotted Land",
+    "location": "Anandapuram, Visakhapatnam",
+    "status": "Ongoing",
+    "priceRange": "₹8L - ₹25L",
+    "images": ["/assets/projects/horizon-2.jpg"],
+    "areaAcres": 42.0,
+    "amenities": ["Gated Community", "Paved Internal Roads", "Water Supply", "Electricity", "Compound Wall"],
+    "documents": [
+      { "label": "Layout Approval", "url": "/assets/docs/layout-sunrise.pdf" }
+    ],
+    "summary": "Affordable plots near upcoming IT corridor with high appreciation potential and clear titles.",
+    "postedAt": "2024-06-20"
+  },
+  {
+    "id": "sp-home-002",
+    "title": "Green Villas",
+    "category": "Homes",
+    "type": "Independent Villas",
+    "location": "Rushikonda, Visakhapatnam",
+    "status": "Upcoming",
+    "priceRange": "₹1.5Cr - ₹3Cr",
+    "images": ["/assets/projects/home-2.jpg"],
+    "areaAcres": 5.2,
+    "amenities": ["Private Garden", "Vastu Compliant", "Solar Panels", "Rain Water Harvesting", "Premium Finishes"],
+    "documents": [
+      { "label": "Project Brochure", "url": "/assets/docs/brochure-villas.pdf" }
+    ],
+    "summary": "Exclusive eco-friendly villas with beach proximity and luxury living in gated community.",
+    "postedAt": "2024-10-01"
+  }
+]
