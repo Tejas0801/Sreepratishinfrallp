@@ -84,5 +84,33 @@
     ],
     "summary": "Exclusive eco-friendly villas with beach proximity and luxury living in gated community.",
     "postedAt": "2024-10-01"
-  }
+  },
+
+  {
+  "id": "sp-horizon-003",
+  "title": "Nivo",
+  "category": "Horizons",
+  "type": "Commercial Complex",
+  "location": "Rushikonda, Visakhapatnam",
+  "status": "Completed",
+  "priceRange": "₹60L - ₹2.5Cr",
+  "images": ["/assets/nivo2.png"],
+  "areaAcres": 1.5,
+  "amenities": [
+    "Retail Spaces",
+    "Office Suites",
+    "Ample Parking",
+    "24x7 Security"
+  ],
+  "documents": [
+    {
+      "label": "Nivo Canvas",
+      "url": "/assets/nivo.html"
+    }
+  ],
+  "detailUrl": "/assets/nivo.html",
+  "summary": "NIVO by Sree Pratish — boutique beachfront studio residences at Rushikonda with smart commercial potential.",
+  "postedAt": "2024-07-01"
+}
+
 ]

@@ -24,11 +24,26 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const CONTACT_PHONE = "7993737373";
+  const CONTACT_ADDRESS =
+    "1-10-4-16/1, Aslimetta Junction, Gnanapuram, Visakhapatnam, Andhra Pradesh, 530004";
+  const CONTACT_EMAIL = "info@sreepratishinfra.com";
+
+  // Google Maps embed via address query (will center based on the address)
+  const mapsQuery = encodeURIComponent(CONTACT_ADDRESS);
+  const mapsSrc = `https://www.google.com/maps?q=${mapsQuery}&z=16&output=embed`;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Client-side validation
-    if (!formData.name || !formData.email || !formData.phone || !formData.enquiryType || !formData.message) {
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.enquiryType ||
+      !formData.message
+    ) {
       toast({
         title: "Validation Error",
         description: "Please fill in all required fields.",
@@ -63,7 +78,7 @@ const Contact = () => {
 
     // Simulate API call
     try {
-      // In production, this would be an actual API endpoint
+      // In production, replace with real API endpoint
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
       toast({
@@ -94,17 +109,17 @@ const Contact = () => {
     {
       icon: MapPin,
       title: "Office Address",
-      content: "Visakhapatnam, Andhra Pradesh, India",
+      content: CONTACT_ADDRESS,
     },
     {
       icon: Phone,
       title: "Phone",
-      content: "+91 XXX XXX XXXX",
+      content: `+91 ${CONTACT_PHONE}`,
     },
     {
       icon: Mail,
       title: "Email",
-      content: "info@sreepratishinfra.com",
+      content: CONTACT_EMAIL,
     },
     {
       icon: Clock,
@@ -113,8 +128,33 @@ const Contact = () => {
     },
   ];
 
+  // JSON-LD structured data for SEO (LocalBusiness)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Sree Pratish Infra LLP",
+    telephone: `+91${CONTACT_PHONE}`,
+    email: CONTACT_EMAIL,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "1-10-4-16/1, Aslimetta Junction, Gnanapuram",
+      addressLocality: "Visakhapatnam",
+      addressRegion: "Andhra Pradesh",
+      postalCode: "530004",
+      addressCountry: "IN",
+    },
+    url: typeof window !== "undefined" ? window.location.origin : "https://your-website-domain.com",
+  };
+
   return (
     <div className="min-h-screen pt-20">
+      {/* Inject JSON-LD */}
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-secondary/50 to-background">
         <div className="container mx-auto px-4 text-center">
@@ -143,7 +183,19 @@ const Contact = () => {
                     <info.icon className="text-primary" size={24} />
                   </div>
                   <h3 className="font-semibold mb-2">{info.title}</h3>
-                  <p className="text-sm text-muted-foreground">{info.content}</p>
+                  <p className="text-sm text-muted-foreground break-words">
+                    {info.title === "Phone" ? (
+                      <a href={`tel:+91${CONTACT_PHONE}`} className="text-inherit">
+                        {info.content}
+                      </a>
+                    ) : info.title === "Email" ? (
+                      <a href={`mailto:${CONTACT_EMAIL}`} className="text-inherit">
+                        {info.content}
+                      </a>
+                    ) : (
+                      info.content
+                    )}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -250,15 +302,18 @@ const Contact = () => {
             {/* Map & Additional Info */}
             <div>
               <h2 className="text-3xl font-serif font-bold mb-6">Visit Our Office</h2>
-              <div className="bg-secondary/20 rounded-lg h-96 mb-6 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <MapPin className="mx-auto mb-4 text-primary" size={48} />
-                  <p className="text-muted-foreground">
-                    Visakhapatnam, Andhra Pradesh
-                    <br />
-                    Interactive map integration available
-                  </p>
-                </div>
+
+              {/* Map iframe */}
+              <div className="bg-secondary/20 rounded-lg h-96 mb-6 overflow-hidden">
+                <iframe
+                  title="Sree Pratish Infra LLP Office Location"
+                  src={mapsSrc}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                />
               </div>
 
               <Card>

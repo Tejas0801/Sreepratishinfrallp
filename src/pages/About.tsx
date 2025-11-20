@@ -1,8 +1,21 @@
+import React from "react";
 import { Target, Eye, Award, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import LeadershipGrid from "@/components/LeadershipGrid";
 
-const About = () => {
-  const values = [
+type ValueItem = {
+  icon: React.ComponentType<any>;
+  title: string;
+  description: string;
+};
+
+type Milestone = {
+  year: string;
+  event: string;
+};
+
+const About: React.FC = () => {
+  const values: ValueItem[] = [
     {
       icon: Target,
       title: "Risk-Mitigated Investments",
@@ -23,7 +36,7 @@ const About = () => {
     },
   ];
 
-  const milestones = [
+  const milestones: Milestone[] = [
     { year: "2018", event: "Company Founded" },
     { year: "2019", event: "First Residential Project Completed" },
     { year: "2020", event: "Expanded to Commercial Developments" },
@@ -86,9 +99,7 @@ const About = () => {
                   </li>
                   <li className="flex items-start">
                     <span className="text-primary mr-2">•</span>
-                    <span>
-                      Innovate in design, planning, and execution for lasting value
-                    </span>
+                    <span>Innovate in design, planning, and execution for lasting value</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-primary mr-2">•</span>
@@ -110,21 +121,24 @@ const About = () => {
             What Sets Us Apart
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {values.map((value, index) => (
-              <Card
-                key={value.title}
-                className="hover-lift animate-scale-in"
-                style={{ animationDelay: `${index * 0.2}s` }}
-              >
-                <CardContent className="p-8">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-                    <value.icon className="text-primary" size={32} />
-                  </div>
-                  <h3 className="text-2xl font-serif font-bold mb-4">{value.title}</h3>
-                  <p className="text-muted-foreground">{value.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+            {values.map((value, index) => {
+              const Icon = value.icon;
+              return (
+                <Card
+                  key={value.title}
+                  className="hover-lift animate-scale-in"
+                  style={{ animationDelay: `${index * 0.2}s` }}
+                >
+                  <CardContent className="p-8">
+                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                      <Icon className="text-primary" size={32} />
+                    </div>
+                    <h3 className="text-2xl font-serif font-bold mb-4">{value.title}</h3>
+                    <p className="text-muted-foreground">{value.description}</p>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -161,32 +175,8 @@ const About = () => {
         </div>
       </section>
 
-      {/* Team Preview */}
-      <section className="py-20 bg-gradient-to-br from-primary/5 to-secondary/20">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">
-            Meet Our Leadership
-          </h2>
-          <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Our experienced team brings decades of combined expertise in real estate development,
-            legal compliance, and strategic planning.
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {["Managing Partner", "Legal Head", "Project Manager", "Investor Relations"].map(
-              (role, index) => (
-                <div
-                  key={role}
-                  className="animate-scale-in"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-primary/20 to-secondary/40 mb-4" />
-                  <p className="font-semibold">{role}</p>
-                </div>
-              )
-            )}
-          </div>
-        </div>
-      </section>
+      {/* Leadership section (render the actual LeadershipGrid component) */}
+      <LeadershipGrid />
     </div>
   );
 };
