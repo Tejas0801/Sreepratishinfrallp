@@ -36,17 +36,25 @@ const Projects = () => {
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [statusFilter, setStatusFilter] = useState("All");
 
-  useEffect(() => {
-    fetch("/data/projects.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setProjects(data);
-        setFilteredProjects(data);
-      })
-      .catch((err) => {
-        console.error("Failed to load projects.json", err);
-      });
-  }, []);
+ useEffect(() => {
+  const url = `${import.meta.env.BASE_URL}data/projects.json`;
+
+  fetch(url)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status} while loading ${url}`);
+      }
+      return res.json();
+    })
+    .then((data: Project[]) => {
+      setProjects(data);
+      setFilteredProjects(data);
+    })
+    .catch((err) => {
+      console.error("Failed to load projects.json", err);
+    });
+}, []);
+
 
   useEffect(() => {
     let filtered = projects;
