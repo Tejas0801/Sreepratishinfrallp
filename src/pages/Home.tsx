@@ -140,7 +140,7 @@ const Home = () => {
           </p>
 
           <p className="mx-auto mt-6 max-w-3xl text-base md:text-lg text-white/80">
-            A Visakhapatnam-based real estate development and advisory firm focused on legal
+            A real estate development and advisory firm focused on legal
             diligence, transparent deals and thoughtfully developed assets that appreciate over time.
           </p>
 
