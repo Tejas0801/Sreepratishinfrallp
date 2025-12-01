@@ -7,12 +7,13 @@ const Footer = () => {
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+
           {/* Company Info */}
           <div>
             <h3 className="text-2xl font-serif font-bold mb-4">Sree Pratish Infra</h3>
             <p className="text-sm text-primary-foreground/80 mb-4">
-              Visakhapatnam-based real estate development firm focused on
+              A. Real estate development firm focused on
               high-growth opportunities and legal security.
             </p>
             <p className="text-xs font-semibold mb-2">Homes · Hubs · Horizons</p>
@@ -46,7 +47,7 @@ const Footer = () => {
                   Services
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   to="/investor"
                   className="text-sm hover:text-secondary transition-colors"
@@ -61,7 +62,7 @@ const Footer = () => {
                 >
                   Blog & News
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 
@@ -77,7 +78,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center space-x-2">
                 <Phone size={16} />
-                <span className="text-sm">+91 XXX XXX XXXX</span>
+                <span className="text-sm">+91 7993737373</span>
               </li>
               <li className="flex items-center space-x-2">
                 <Mail size={16} />
@@ -110,7 +111,7 @@ const Footer = () => {
           </div>
 
           {/* Newsletter */}
-          <div>
+          {/* <div>
             <h4 className="text-lg font-semibold mb-4">Stay Updated</h4>
             <p className="text-sm text-primary-foreground/80 mb-4">
               Subscribe to our newsletter for latest projects and news.
@@ -125,7 +126,7 @@ const Footer = () => {
                 Subscribe
               </Button>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="border-t border-primary-foreground/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">

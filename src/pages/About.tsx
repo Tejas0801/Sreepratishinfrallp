@@ -55,7 +55,7 @@ const About: React.FC = () => {
               About Sree Pratish Infra
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed animate-slide-up">
-              Sree Pratish Infra LLP is a Visakhapatnam-based real estate development and advisory
+              Sree Pratish Infra LLP is a real estate development and advisory
               firm with a sharp focus on high-growth opportunities, legal security, and sustainable
               value creation. We don't just develop land—we transform it into trusted, high-yield
               assets through meticulous planning, transparent dealings, and future-ready
@@ -152,24 +152,21 @@ const About: React.FC = () => {
           <div className="max-w-4xl mx-auto">
             <div className="space-y-8">
               {milestones.map((milestone, index) => (
-                <div
-                  key={milestone.year}
-                  className="flex items-center gap-6 animate-fade-in"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className="w-24 flex-shrink-0">
-                    <div className="text-3xl font-serif font-bold text-primary">
-                      {milestone.year}
-                    </div>
-                  </div>
-                  <div className="flex-grow">
-                    <div className="h-1 w-full bg-gradient-to-r from-primary to-secondary rounded-full" />
-                  </div>
-                  <div className="flex-grow">
-                    <p className="text-lg font-medium">{milestone.event}</p>
-                  </div>
-                </div>
-              ))}
+  <div key={index} className="flex items-center gap-6 py-2">
+    
+    {/* Line */}
+    <div className="flex-grow">
+      <div className="h-1 w-full bg-gradient-to-r from-primary to-secondary rounded-full" />
+    </div>
+
+    {/* Event Text */}
+    <div className="flex-grow">
+      <p className="text-lg font-medium">{milestone.event}</p>
+    </div>
+
+  </div>
+))}
+
             </div>
           </div>
         </div>
