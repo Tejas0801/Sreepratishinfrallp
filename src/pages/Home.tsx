@@ -303,14 +303,16 @@ const Home = () => {
             <Button asChild size="lg" variant="secondary" className="px-8">
               <Link to="/projects">Browse Projects</Link>
             </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="px-8 border-primary-foreground text-primary-foreground"
-            >
-              <Link to="/investor">Investor Information</Link>
-            </Button>
+           <Button
+  asChild
+  size="lg"
+  variant="secondary"
+  className="px-8 py-3 text-sm flex items-center justify-center"
+>
+  <Link to="/investor">Investor Information</Link>
+</Button>
+
+
           </div>
         </div>
       </section>
